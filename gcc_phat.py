@@ -34,16 +34,16 @@ def gcc_phat(sig, refsig, fs=1, max_tau=None, interp=16):
 
     cc = np.fft.irfft(R / np.abs(R), n=(interp * n))
 
-    if not max_tau:
-        max_tau = n / 2.0
-
-    max_shift = int(interp * fs * max_tau)
+    max_shift = int(interp * n / 2)
+    if max_tau:
+        max_shift = np.minimum(int(interp * fs * max_tau), max_shift)
 
     cc = np.concatenate((cc[-max_shift:], cc[:max_shift+1]))
 
     # find max cross correlation index
-    shift = np.argmax(np.abs(cc))
-    tau = (shift - max_shift) / float(interp * fs)
+    shift = np.argmax(np.abs(cc)) - max_shift
+
+    tau = shift / float(interp * fs)
     
     return tau
 
