@@ -26,7 +26,7 @@ while True:
     ref = far.readframes(N)
     sig_buf = np.fromstring(sig, dtype='int16')
     ref_buf = np.fromstring(ref, dtype='int16')
-    tau = gcc_phat(sig_buf * window, ref_buf * window, fs=rate, max_tau=1)
-    # tau = gcc_phat(sig_buf, ref_buf, fs=rate, max_tau=1)
+    tau, _ = gcc_phat(sig_buf * window, ref_buf * window, fs=rate, max_tau=1)
+    # tau, _ = gcc_phat(sig_buf, ref_buf, fs=rate, max_tau=1)
     print(tau * 1000)
 

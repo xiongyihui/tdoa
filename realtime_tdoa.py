@@ -89,7 +89,7 @@ def main():
     window = np.hanning(N)
 
     sound_speed = 343.2
-    distance = 0.10
+    distance = 0.14
 
     max_tau = distance / sound_speed
 
@@ -106,7 +106,7 @@ def main():
             mono, _ = audioop.ratecv(mono, 2, 1, sample_rate, 16000, None)
 
         if vad.is_speech(mono):
-            tau = gcc_phat(buf[0::channels]*window, buf[1::channels]*window, fs=sample_rate, max_tau=max_tau)
+            tau, _ = gcc_phat(buf[0::channels]*window, buf[1::channels]*window, fs=sample_rate, max_tau=max_tau)
             theta = math.asin(tau / max_tau) * 180 / math.pi
             print('\ntheta: {}'.format(int(theta)))
 

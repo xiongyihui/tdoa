@@ -45,7 +45,7 @@ def gcc_phat(sig, refsig, fs=1, max_tau=None, interp=16):
 
     tau = shift / float(interp * fs)
     
-    return tau
+    return tau, cc
 
 
 def main():
@@ -54,9 +54,10 @@ def main():
 
     for i in range(0, 10):
         sig = np.concatenate((np.linspace(0, 0, i), refsig, np.linspace(0, 0, 10 - i)))
-        print(gcc_phat(sig, refsig))
+        offset, _ = gcc_phat(sig, refsig)
+        print(offset)
 
-    
+
 if __name__ == "__main__":
     main()
 

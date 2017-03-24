@@ -1,4 +1,4 @@
-function tau = gcc_phat(sig, refsig, fs, max_tau, interp)
+function [tau, cc] = gcc_phat(sig, refsig, fs, max_tau, interp)
 
 n = length(sig) + length(refsig);
 max_shift = floor(n / 2);
