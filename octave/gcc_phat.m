@@ -8,7 +8,7 @@ if nargin < 3
 end
 
 if nargin >= 4
-  max_shift = min(floor(fs * max_tau), max_shift)
+  max_shift = min(floor(fs * max_tau), max_shift);
 end
 
 if nargin < 5
@@ -24,8 +24,9 @@ R = X1 .* conj(X2);
 cc = ifft(R ./ (abs(R)), n * interp);
 N = length(cc);
 cc = [cc((N - max_shift + 1):N)(:); cc(1:(max_shift + 1))(:)];
+cc = abs(cc);
 
-[max_cc, shift] = max(abs(cc));
+[max_cc, shift] = max(cc);
 shift -= max_shift + 1;
 
 tau = shift / (interp * fs);
