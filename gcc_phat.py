@@ -41,7 +41,10 @@ def gcc_phat(sig, refsig, fs=1, max_tau=None, interp=16):
     cc = np.concatenate((cc[-max_shift:], cc[:max_shift+1]))
 
     # find max cross correlation index
-    shift = np.argmax(np.abs(cc)) - max_shift
+    shift = np.argmax(cc) - max_shift
+
+    # Sometimes, there is a 180-degree phase difference between the two microphones.
+    # shift = np.argmax(np.abs(cc)) - max_shift
 
     tau = shift / float(interp * fs)
     
